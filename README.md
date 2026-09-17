@@ -2,7 +2,7 @@
 
 一个基于 Electron 的本地悬浮摄像头窗口，可用于录屏或直播时展示摄像头画面，也可播放本地视频列表。
 
-[源码](https://github.com/WUTONGCN/mini-camera) · [历史下载](https://github.com/WUTONGCN/mini-camera/releases) · [反馈](https://github.com/WUTONGCN/mini-camera/issues)
+[源码](https://github.com/WUTONGCN/mini-camera) · [下载](https://github.com/WUTONGCN/mini-camera/releases) · [反馈](https://github.com/WUTONGCN/mini-camera/issues)
 
 ## 功能
 
@@ -39,7 +39,7 @@ npm run build:mac
 ```
 
 输出位于 `dist/`。图标源文件已包含在仓库，macOS 图标由 electron-builder 从 `icon.png` 生成。默认构建不包含开发者签名或 Apple 公证；正式分发时应自行配置签名，私钥及证书不要提交。
-GitHub Actions 在 Windows 和 macOS 上运行测试并验证目录打包，不自动发布安装包。历史 Release 不代表当前社区源码，本次源码发布未替换旧二进制。
+GitHub Actions 在 Windows 和 macOS 上运行测试及目录打包检查。
 
 ## 使用
 
@@ -51,14 +51,12 @@ GitHub Actions 在 Windows 和 macOS 上运行测试并验证目录打包，不�
 
 ## 隐私与安全
 
-- 社区版移除机器码、硬件指纹、授权码校验及收款弹窗；不需要账号或商业后端。
 - 应用代码不上传摄像头画面、视频、设备列表或设置，无遥测和自动更新请求。
 - 仅申请摄像头视频权限，不申请麦克风权限。页面使用 context isolation，关闭 Node integration，IPC 限制在指定接口和主窗口文档。
-- 窗口设置、设备 ID 和视频绝对路径保存在 Electron `userData/config.json`（通常为 macOS `~/Library/Application Support/mini-camera/` 或 Windows `%APPDATA%/mini-camera/`）。旧授权字段不会载入社区版配置。
-- 上述配置、诊断日志与摄像头画面可能含个人信息，反馈时请自行遮挡。`.gitignore` 不会清理已提交的文件。
-- 当前分支移除收款图片和旧使用截图；历史 Git 提交和旧 Release 未重写。
+- 窗口设置、设备 ID 和视频绝对路径保存在 Electron `userData/config.json`（通常为 macOS `~/Library/Application Support/mini-camera/` 或 Windows `%APPDATA%/mini-camera/`）。
+- 上述配置、诊断日志与摄像头画面可能含个人信息，反馈时请自行遮挡。
 
 ## 贡献与许可
 
 自有源码采用 [MIT](LICENSE)。依赖及 Electron 所含第三方组件保留各自许可证；分发时请保留打包产物中的许可声明。
-见 [贡献指南](CONTRIBUTING.md) 和 [安全说明](SECURITY.md)。构建与自动测试不等于真实摄像头、外接设备或各系统权限流程均已验收。
+见 [贡献指南](CONTRIBUTING.md) 和 [安全说明](SECURITY.md)。
