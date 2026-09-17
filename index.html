@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; media-src 'self' file: blob:; connect-src 'none'; object-src 'none'; base-uri 'none'">
+  <title>MiniCamera</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="container" class="shape-circle">
+    <div id="surface">
+      <div id="interaction-layer" aria-hidden="true"></div>
+
+      <div id="media-stage">
+        <video id="camera" autoplay muted playsinline></video>
+        <video id="video" muted></video>
+
+        <div id="placeholder" class="hidden">
+          <div class="empty-eyebrow">MINI CAMERA</div>
+          <div id="placeholder-title">未连接画面</div>
+          <div id="placeholder-description">暂时还没有可用的视频或摄像头画面。</div>
+          <div id="placeholder-hint">右键打开菜单切换视频源或调整窗口。</div>
+        </div>
+      </div>
+
+      <div id="status-strip" data-kind="neutral">
+        <span id="status-text"></span>
+      </div>
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

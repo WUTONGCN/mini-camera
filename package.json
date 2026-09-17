@@ -1,0 +1,99 @@
+{
+  "name": "mini-camera",
+  "version": "1.0.0",
+  "description": "迷你摄像头窗口 - Electron版",
+  "main": "main.js",
+  "scripts": {
+    "start": "node launch.js",
+    "dev": "node launch.js --dev",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win",
+    "build:mac": "electron-builder --mac",
+    "build:all": "electron-builder --win --mac",
+    "test": "node --test test/*.test.js",
+    "check": "node --check main.js && node --check preload.js && node --check renderer.js && node --check config.js",
+    "build:dir": "electron-builder --dir"
+  },
+  "keywords": [
+    "camera",
+    "electron",
+    "overlay"
+  ],
+  "author": "WUTONG",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^44.4.1",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "com.minicamera.app",
+    "productName": "MiniCamera",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer.js",
+      "config.js",
+      "media-path.js",
+      "window-behavior.js",
+      "index.html",
+      "styles.css",
+      "icon.ico",
+      "icon.png",
+      "LICENSE",
+      "package.json"
+    ],
+    "win": {
+      "signAndEditExecutable": false,
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "icon.ico"
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ],
+      "icon": "icon.png",
+      "category": "public.app-category.utilities",
+      "entitlements": "entitlements.mac.plist",
+      "entitlementsInherit": "entitlements.mac.plist",
+      "extendInfo": {
+        "NSCameraUsageDescription": "MiniCamera 需要访问摄像头，用于显示悬浮摄像头画面。"
+      }
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  },
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/WUTONGCN/mini-camera.git"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

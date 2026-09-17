@@ -1,37 +1,64 @@
-# mini-camera - 使用说明
+# MiniCamera
 
-仅保留必需的使用步骤，便于快速上手。一款简洁、美观的圆形悬浮摄像头小工具，支持切换不同的摄像头，支持鼠标滚动自动调整大小，鼠标拖动位置，方便在直播或者录屏的时候使用，不知道是否需要mac版本 有需要可以上
-# 下载方式
-直接在右侧release下载，双击解压后使用
+一个基于 Electron 的本地悬浮摄像头窗口，可用于录屏或直播时展示摄像头画面，也可播放本地视频列表。
 
-## 环境要求
+[源码](https://github.com/WUTONGCN/mini-camera) · [历史下载](https://github.com/WUTONGCN/mini-camera/releases) · [反馈](https://github.com/WUTONGCN/mini-camera/issues)
 
-- Windows 10/11
-## 使用截图
+## 功能
 
-- 切换摄像头
+- 切换系统默认摄像头或指定摄像头。
+- 圆形、方形、圆角方形窗口，置顶与透明度设置。
+- 鼠标拖动位置，滚轮调整大小（100–500 px），右键菜单选择常用尺寸。
+- 选择本地视频，多文件顺序循环播放；实际解码能力由 Electron/Chromium 决定。
+- 托盘/菜单栏图标显示或隐藏窗口，单实例运行。
 
-  <img src="image/切换.png"/>
+本工具不录制、不推流，也不提供虚拟摄像头。摄像头不采集音频，本地视频静音播放。
 
-- 小
+## 开发与构建
 
-<img src="image/小.png"/>
+需要 Node.js 22.12+（建议 Node.js 22）、npm，以及 Windows 或 macOS。
 
-- 中
+```sh
+git clone https://github.com/WUTONGCN/mini-camera.git
+cd mini-camera
+npm ci
+npm run check
+npm test
+npm start
+```
 
-<img src="image/中.png"/>
+`npm run dev` 会打开开发者工具。安装时需下载 Electron 二进制；企业代理环境请自行配置 npm/Electron 下载代理，不要把凭据写入仓库。
 
-- 大
+```sh
+# 在当前平台生成可运行应用目录
+npm run build:dir
+# Windows 主机：NSIS 安装包及便携版（x64）
+npm run build:win
+# macOS 主机：DMG（x64 和 arm64）
+npm run build:mac
+```
 
-<img src="image/大.png"/>
+输出位于 `dist/`。图标源文件已包含在仓库，macOS 图标由 electron-builder 从 `icon.png` 生成。默认构建不包含开发者签名或 Apple 公证；正式分发时应自行配置签名，私钥及证书不要提交。
+GitHub Actions 在 Windows 和 macOS 上运行测试并验证目录打包，不自动发布安装包。历史 Release 不代表当前社区源码，本次源码发布未替换旧二进制。
 
-## 支持作者
+## 使用
 
-为爱发电，持续更新中（得有人愿意使用），如本工具对你有帮助，欢迎赞赏支持（谢谢！）。作者肄业还房贷，为爱发电中，您的支持是我持续维护更新的动力。
+1. 启动后允许系统摄像头权限；默认显示 150 px 圆形窗口。
+2. 在窗口上右键，切换视频源、形状、透明度和置顶状态。
+3. 左键拖动移动位置，滚轮缩放。隐藏后点击托盘/菜单栏图标恢复。
+4. macOS 权限被拒绝时，可从右键菜单打开摄像头权限设置；Windows 请在系统的摄像头隐私设置中允许桌面应用访问。
+5. 右键选择“退出”彻底关闭。**隐藏窗口不会关闭摄像头**；切换到视频或退出应用可释放摄像头。
 
-| 微信 | 支付宝 |
-| --- | --- |
-| <img src="image/weixin.jpg" width="260" /> | <img src="image/zhifubao.jpg" width="260" /> |
+## 隐私与安全
 
+- 社区版移除机器码、硬件指纹、授权码校验及收款弹窗；不需要账号或商业后端。
+- 应用代码不上传摄像头画面、视频、设备列表或设置，无遥测和自动更新请求。
+- 仅申请摄像头视频权限，不申请麦克风权限。页面使用 context isolation，关闭 Node integration，IPC 限制在指定接口和主窗口文档。
+- 窗口设置、设备 ID 和视频绝对路径保存在 Electron `userData/config.json`（通常为 macOS `~/Library/Application Support/mini-camera/` 或 Windows `%APPDATA%/mini-camera/`）。旧授权字段不会载入社区版配置。
+- 上述配置、诊断日志与摄像头画面可能含个人信息，反馈时请自行遮挡。`.gitignore` 不会清理已提交的文件。
+- 当前分支移除收款图片和旧使用截图；历史 Git 提交和旧 Release 未重写。
 
+## 贡献与许可
 
+自有源码采用 [MIT](LICENSE)。依赖及 Electron 所含第三方组件保留各自许可证；分发时请保留打包产物中的许可声明。
+见 [贡献指南](CONTRIBUTING.md) 和 [安全说明](SECURITY.md)。构建与自动测试不等于真实摄像头、外接设备或各系统权限流程均已验收。
